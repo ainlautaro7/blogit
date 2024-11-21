@@ -1,0 +1,2 @@
+# blogit
+Blogs de tecnología
