@@ -1,6 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../models/news_article.dart';
+import 'package:myapp2/models/news_article.dart';
 
 class NewsArticleServices {
   final String baseUrl = "http://0.0.0.0:3000";

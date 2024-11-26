@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:myapp2/main.dart';
 import 'package:provider/provider.dart';
-import '../../services/auth_service.dart';
-import '../../providers/theme_provider.dart';
-import 'login_page.dart';
+import 'package:myapp2/main.dart';
+import 'package:myapp2/services/auth_service.dart';
+import 'package:myapp2/providers/theme_provider.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -73,20 +72,19 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-    final backgroundColor = themeProvider.isDarkMode ? Colors.grey[950] : Colors.white;
+    final backgroundColor =
+        themeProvider.isDarkMode ? Colors.grey[950] : Colors.white;
     final appBarColor = themeProvider.isDarkMode ? Colors.green : Colors.black;
     final titleColor = themeProvider.isDarkMode ? Colors.white : Colors.black;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('BLOGIT', style: TextStyle(fontWeight: FontWeight.w700,fontSize: 25)),
+        title: const Text('BLOGIT',
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25)),
         centerTitle: true,
         elevation: 5.0,
         backgroundColor: backgroundColor,
-        titleTextStyle: TextStyle(
-            color: titleColor,
-            fontSize: 25
-        ),
+        titleTextStyle: TextStyle(color: titleColor, fontSize: 25),
         iconTheme: IconThemeData(
           color: appBarColor, // Color de los íconos
         ),
@@ -162,7 +160,9 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         suffixIcon: IconButton(
                           icon: Icon(
-                            _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                            _isPasswordVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off,
                             color: Colors.black54,
                           ),
                           onPressed: () {
@@ -177,25 +177,25 @@ class _RegisterPageState extends State<RegisterPage> {
                     _isLoading
                         ? const CircularProgressIndicator()
                         : ElevatedButton(
-                      onPressed: _register,
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 15),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        backgroundColor: Colors.black87,
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 25),
-                        child: Text(
-                          '<btn> Registrarse </btn>',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
+                            onPressed: _register,
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(vertical: 15),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              backgroundColor: Colors.black87,
+                            ),
+                            child: const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 25),
+                              child: Text(
+                                '<btn> Registrarse </btn>',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ),

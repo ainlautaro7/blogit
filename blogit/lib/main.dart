@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:myapp2/pages/administrations/admin_dashboard_page.dart';
-import 'package:myapp2/pages/administrations/create_article_page.dart';
 import 'package:myapp2/pages/user/login_page.dart';
 import 'package:myapp2/pages/user/profile_page.dart';
 import 'providers/auth_provider.dart';
@@ -31,7 +30,9 @@ class MyApp extends StatelessWidget {
       title: 'Tech News Blog',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        brightness: Provider.of<ThemeProvider>(context).isDarkMode ? Brightness.dark : Brightness.light,
+        brightness: Provider.of<ThemeProvider>(context).isDarkMode
+            ? Brightness.dark
+            : Brightness.light,
       ),
       home: const MainScreen(),
     );
@@ -47,8 +48,10 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0; // Estado del índice seleccionado
-  final PageController _pageController = PageController(); // Controlador de la página
-  final NotchBottomBarController _controller = NotchBottomBarController(index: 0);
+  final PageController _pageController =
+      PageController(); // Controlador de la página
+  final NotchBottomBarController _controller =
+      NotchBottomBarController(index: 0);
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +73,8 @@ class _MainScreenState extends State<MainScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('BLOGIT', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25)),
+        title: const Text('BLOGIT',
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25)),
         centerTitle: true,
         elevation: 5.0,
         backgroundColor: isDarkMode ? Colors.grey[950] : Colors.white,
@@ -95,7 +99,8 @@ class _MainScreenState extends State<MainScreen> {
         children: pages, // Muestra la lista de páginas
         onPageChanged: (index) {
           setState(() {
-            _selectedIndex = index; // Actualiza el índice seleccionado al cambiar de página
+            _selectedIndex =
+                index; // Actualiza el índice seleccionado al cambiar de página
           });
         },
       ),

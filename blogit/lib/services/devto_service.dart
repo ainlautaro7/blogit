@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../models/news_article.dart';
-import '../models/podcast_episode.dart';
+import 'package:myapp2/models/news_article.dart';
+import 'package:myapp2/models/podcast_episode.dart';
 
 class DevToService {
   static const _baseUrl = 'https://dev.to/api';
 
-  Future<List<NewsArticle>> fetchArticles({String? tag, int? page, int? perPage}) async {
+  Future<List<NewsArticle>> fetchArticles(
+      {String? tag, int? page, int? perPage}) async {
     String url = '$_baseUrl/articles?tag=$tag&page=$page&per_page=$perPage';
     if (tag != null && tag.isNotEmpty) {
       url += '?tag=$tag';
@@ -65,5 +66,4 @@ class DevToService {
       throw Exception('Failed to load podcasts');
     }
   }
-
 }

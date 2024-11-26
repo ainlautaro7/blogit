@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myapp2/models/news_article.dart';
 import 'package:myapp2/services/news_article_services.dart';
 import 'package:provider/provider.dart';
-import 'dart:io';
-import '../../providers/theme_provider.dart';
+import 'package:myapp2/providers/theme_provider.dart';
 
 class EditArticlePage extends StatefulWidget {
   final NewsArticle article;
@@ -25,15 +24,17 @@ class _EditArticlePageState extends State<EditArticlePage> {
   late TextEditingController _urlController;
 
   final DateTime _selectedPublishDate = DateTime.now();
-  File? _coverImage;
 
   @override
   void initState() {
     super.initState();
     _titleController = TextEditingController(text: widget.article.title);
-    _descriptionController = TextEditingController(text: widget.article.description);
-    _contentController = TextEditingController(text: widget.article.bodyMarkdown);
-    _coverImageController = TextEditingController(text: widget.article.coverImage);
+    _descriptionController =
+        TextEditingController(text: widget.article.description);
+    _contentController =
+        TextEditingController(text: widget.article.bodyMarkdown);
+    _coverImageController =
+        TextEditingController(text: widget.article.coverImage);
     _tagsController = TextEditingController(text: widget.article.tags);
     _slugController = TextEditingController(text: widget.article.slug);
     _urlController = TextEditingController(text: widget.article.url);
@@ -89,7 +90,8 @@ class _EditArticlePageState extends State<EditArticlePage> {
         bodyMarkdown: content,
       );
 
-      final result = await _newsArticleServices.updateNewsArticle(updatedArticle);
+      final result =
+          await _newsArticleServices.updateNewsArticle(updatedArticle);
 
       if (result['success'] == true) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -98,7 +100,9 @@ class _EditArticlePageState extends State<EditArticlePage> {
         Navigator.pop(context); // Volver a la página anterior.
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error al actualizar el artículo: ${result['message']}')),
+          SnackBar(
+              content: Text(
+                  'Error al actualizar el artículo: ${result['message']}')),
         );
       }
     } else {
@@ -111,13 +115,15 @@ class _EditArticlePageState extends State<EditArticlePage> {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-    final backgroundColor = themeProvider.isDarkMode ? Colors.grey[950] : Colors.white;
+    final backgroundColor =
+        themeProvider.isDarkMode ? Colors.grey[950] : Colors.white;
     final appBarColor = themeProvider.isDarkMode ? Colors.green : Colors.black;
     final titleColor = themeProvider.isDarkMode ? Colors.white : Colors.black;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('BLOGIT', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25)),
+        title: const Text('BLOGIT',
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25)),
         centerTitle: true,
         elevation: 5.0,
         backgroundColor: backgroundColor,
@@ -143,9 +149,11 @@ class _EditArticlePageState extends State<EditArticlePage> {
                     borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide.none,
                   ),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 ),
-                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
               // Descripción del artículo
@@ -160,9 +168,11 @@ class _EditArticlePageState extends State<EditArticlePage> {
                     borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide.none,
                   ),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 ),
-                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
               // Contenido del artículo
@@ -177,7 +187,8 @@ class _EditArticlePageState extends State<EditArticlePage> {
                     borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide.none,
                   ),
-                  contentPadding:const  EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 ),
                 maxLines: 10,
                 style: const TextStyle(fontSize: 16),
@@ -185,21 +196,22 @@ class _EditArticlePageState extends State<EditArticlePage> {
               const SizedBox(height: 20),
               // Botón para guardar o enviar el artículo
               Center(
-                  child: ElevatedButton(
-                    onPressed: _updateArticle,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black87,
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        child: Text('Actualizar Artículo', style: TextStyle(fontSize: 18,color: Colors.white)),
+                child: ElevatedButton(
+                  onPressed: _updateArticle,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black87,
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Text('Actualizar Artículo',
+                        style: TextStyle(fontSize: 18, color: Colors.white)),
+                  ),
                 ),
+              ),
             ],
           ),
         ),

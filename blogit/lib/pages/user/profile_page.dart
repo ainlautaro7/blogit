@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:myapp2/main.dart';
-import 'package:myapp2/pages/articles/news_detail_page.dart';
-import 'package:myapp2/pages/articles/news_list_page.dart';
-import 'package:myapp2/pages/user/edit_profile_page.dart';
 import 'package:provider/provider.dart';
-import '../../providers/auth_provider.dart';
+import 'package:myapp2/providers/auth_provider.dart';
+import 'package:myapp2/main.dart';
+import 'package:myapp2/pages/user/edit_profile_page.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -16,10 +14,14 @@ class ProfilePage extends StatelessWidget {
         child: Consumer<AuthProvider>(
           builder: (context, authProvider, child) {
             // Obtén los datos del usuario desde el AuthProvider
-            const String profileImageUrl = 'https://via.placeholder.com/150'; // Imagen predeterminada
-            final String name = authProvider.currentUser?.username ?? 'Guest User';
-            final String email = authProvider.currentUser?.email ?? 'Sin mail registrado';
-            final String aboutMe = authProvider.currentUser?.aboutMe ?? 'Sin bio registrada';
+            const String profileImageUrl =
+                'https://via.placeholder.com/150'; // Imagen predeterminada
+            final String name =
+                authProvider.currentUser?.username ?? 'Guest User';
+            final String email =
+                authProvider.currentUser?.email ?? 'Sin mail registrado';
+            final String aboutMe =
+                authProvider.currentUser?.aboutMe ?? 'Sin bio registrada';
 
             return Column(
               children: [
@@ -39,13 +41,15 @@ class ProfilePage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => EditProfilePage(user: authProvider.currentUser),
+                          builder: (context) =>
+                              EditProfilePage(user: authProvider.currentUser),
                         ),
                       );
                     },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 12),
-                      minimumSize: const Size(double.infinity, 0), // Ancho completo
+                      minimumSize:
+                          const Size(double.infinity, 0), // Ancho completo
                     ),
                     child: Text('Editar Perfil'),
                   ),
@@ -53,7 +57,8 @@ class ProfilePage extends StatelessWidget {
                 const SizedBox(height: 20),
                 // Información del usuario
                 Card(
-                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                   elevation: 4,
                   child: Padding(
                     padding: const EdgeInsets.all(20),
@@ -63,9 +68,7 @@ class ProfilePage extends StatelessWidget {
                         Text(
                           name,
                           style: const TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold
-                          ),
+                              fontSize: 30, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 8),
                         Text(
@@ -86,10 +89,8 @@ class ProfilePage extends StatelessWidget {
                         const SizedBox(height: 8),
                         Text(
                           aboutMe,
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.grey[600]
-                          ),
+                          style:
+                              TextStyle(fontSize: 16, color: Colors.grey[600]),
                         ),
                       ],
                     ),
@@ -101,20 +102,24 @@ class ProfilePage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: ElevatedButton(
                     onPressed: () async {
-                      authProvider.logout();  // Llamar a la función de logout del provider
+                      authProvider
+                          .logout(); // Llamar a la función de logout del provider
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => const MainScreen(),
                         ),
-                      );  // Redirigir al login
+                      ); // Redirigir al login
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black87, // Cambiar el color a rojo para indicar un cierre de sesión
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      minimumSize: const Size(double.infinity, 0) // Ancho completo
-                    ),
-                    child: Text('Cerrar Sesión',style: TextStyle(color: Colors.white)),
+                        backgroundColor: Colors
+                            .black87, // Cambiar el color a rojo para indicar un cierre de sesión
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        minimumSize:
+                            const Size(double.infinity, 0) // Ancho completo
+                        ),
+                    child: Text('Cerrar Sesión',
+                        style: TextStyle(color: Colors.white)),
                   ),
                 ),
                 const SizedBox(height: 20),

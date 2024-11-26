@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/user.dart'; // Importa tu modelo User
+import 'package:myapp2/models/user.dart';
 
 class AuthProvider with ChangeNotifier {
   bool _isAuthenticated = false;

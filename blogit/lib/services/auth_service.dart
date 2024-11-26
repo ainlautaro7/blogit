@@ -1,6 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../models/user.dart';
+import 'package:myapp2/models/user.dart';
 
 class AuthServices {
   final String baseUrl = "http://0.0.0.0:3000";

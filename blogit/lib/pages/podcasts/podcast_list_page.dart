@@ -3,9 +3,8 @@ import 'package:myapp2/models/podcast_episode.dart';
 import 'package:myapp2/pages/podcasts/podcast_detail_page.dart';
 import 'package:provider/provider.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import '../../services/devto_service.dart'; // Asegúrate de que la ruta sea correcta
-import '../articles/news_detail_page.dart'; // Cambia esto si el detalle del podcast es diferente
-import '../../providers/theme_provider.dart';
+import 'package:myapp2/services/devto_service.dart';
+import 'package:myapp2/providers/theme_provider.dart';
 
 class PodcastPage extends StatefulWidget {
   const PodcastPage({super.key});
@@ -18,7 +17,6 @@ class _PodcastPageState extends State<PodcastPage> {
   late Future<List<PodcastEpisode>> _podcastEpisodes;
   late Future<List<String>> _tags;
   String? _selectedTag;
-  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
@@ -39,13 +37,12 @@ class _PodcastPageState extends State<PodcastPage> {
   }
 
   Future<List<PodcastEpisode>> _fetchPodcasts(String? tag) {
-    return DevToService().fetchPodcasts(); // Suponiendo que fetchPodcasts acepta un parámetro para filtrar
+    return DevToService()
+        .fetchPodcasts(); // Suponiendo que fetchPodcasts acepta un parámetro para filtrar
   }
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Provider.of<ThemeProvider>(context).isDarkMode;
-
     return Scaffold(
       body: Column(
         children: [
@@ -93,7 +90,8 @@ class _PodcastPageState extends State<PodcastPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => PodcastDetailPage(episode: episode), // Pasando el episodio seleccionado
+                      builder: (context) => PodcastDetailPage(
+                          episode: episode), // Pasando el episodio seleccionado
                     ),
                   );
                 },
@@ -103,10 +101,13 @@ class _PodcastPageState extends State<PodcastPage> {
                     color: Colors.white, // Color de fondo de la tarjeta
                     boxShadow: [
                       BoxShadow(
-                        color: isDarkMode ? Colors.transparent : Colors.grey.withOpacity(0.3),
+                        color: isDarkMode
+                            ? Colors.transparent
+                            : Colors.grey.withOpacity(0.3),
                         spreadRadius: 2,
                         blurRadius: 5,
-                        offset: const Offset(0, 0), // Cambiar la posición de la sombra
+                        offset: const Offset(
+                            0, 0), // Cambiar la posición de la sombra
                       ),
                     ],
                   ),
@@ -114,15 +115,18 @@ class _PodcastPageState extends State<PodcastPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ClipRRect(
-                        borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
-                        child: episode.imageUrl != null
-                            ? Image.network(episode.imageUrl, height: 120, width: double.infinity, fit: BoxFit.cover)
-                            : Image.network(episode.imageUrl, height: 120, width: double.infinity, fit: BoxFit.cover),
-                      ),
+                          borderRadius: const BorderRadius.vertical(
+                              top: Radius.circular(10)),
+                          child: Image.network(episode.imageUrl,
+                              height: 120,
+                              width: double.infinity,
+                              fit: BoxFit.cover)),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          episode.title.length > 50 ? '${episode.title.substring(0, 50)}...' : episode.title,
+                          episode.title.length > 50
+                              ? '${episode.title.substring(0, 50)}...'
+                              : episode.title,
                           style: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
@@ -170,7 +174,8 @@ class _PodcastPageState extends State<PodcastPage> {
   void _filterEpisodes(String? tag) {
     setState(() {
       _selectedTag = tag;
-      _podcastEpisodes = _fetchPodcasts(tag); // Actualiza los episodios con el tag seleccionado
+      _podcastEpisodes = _fetchPodcasts(
+          tag); // Actualiza los episodios con el tag seleccionado
     });
   }
 }

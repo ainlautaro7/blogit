@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../providers/auth_provider.dart';
-import '../../services/news_article_services.dart';
-import '../../models/news_article.dart';
-import '../../providers/theme_provider.dart';
+import 'package:myapp2/providers/auth_provider.dart';
+import 'package:myapp2/services/news_article_services.dart';
+import 'package:myapp2/models/news_article.dart';
+import 'package:myapp2/providers/theme_provider.dart';
 import 'dart:io';
 
 class CreateArticlePage extends StatefulWidget {
@@ -17,8 +17,6 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
-  final TextEditingController _coverImageController = TextEditingController();
-  final TextEditingController _tagsController = TextEditingController();
   final TextEditingController _slugController = TextEditingController();
   final TextEditingController _urlController = TextEditingController();
 
@@ -32,14 +30,17 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-    final backgroundColor = themeProvider.isDarkMode ? Colors.grey[950] : Colors.white;
+    final backgroundColor =
+        themeProvider.isDarkMode ? Colors.grey[950] : Colors.white;
     final appBarColor = themeProvider.isDarkMode ? Colors.green : Colors.black;
     final titleColor = themeProvider.isDarkMode ? Colors.white : Colors.black;
-    final authProvider = Provider.of<AuthProvider>(context); // Accede al AuthProvider
+    final authProvider =
+        Provider.of<AuthProvider>(context); // Accede al AuthProvider
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('BLOGIT', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25)),
+        title: const Text('BLOGIT',
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25)),
         centerTitle: true,
         elevation: 5.0,
         backgroundColor: backgroundColor,
@@ -65,9 +66,11 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
                     borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide.none,
                   ),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 ),
-                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
 
               const SizedBox(height: 20),
@@ -84,12 +87,14 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
                     borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide.none,
                   ),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 ),
-                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
 
-              const SizedBox( height: 20),
+              const SizedBox(height: 20),
 
               // Contenido del artículo
               TextField(
@@ -103,7 +108,8 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
                     borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide.none,
                   ),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 ),
                 maxLines: 10,
                 style: const TextStyle(fontSize: 16),
@@ -117,7 +123,8 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
                     String title = _titleController.text;
                     String description = _descriptionController.text;
                     String content = _contentController.text;
-                    String coverImage = _coverImage != null ? _coverImage!.path : '';
+                    String coverImage =
+                        _coverImage != null ? _coverImage!.path : '';
                     String tags = _tags.join(', ');
                     String slug = _slugController.text;
                     String url = _urlController.text;
@@ -130,7 +137,8 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
                         title: title,
                         description: description,
                         coverImage: coverImage.isEmpty ? '' : coverImage,
-                        readablePublishDate: _selectedPublishDate.toIso8601String(),
+                        readablePublishDate:
+                            _selectedPublishDate.toIso8601String(),
                         socialImage: '',
                         tagList: _tags,
                         tags: tags,
@@ -149,41 +157,44 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
                         lastCommentAt: DateTime.now(),
                         publishedTimestamp: DateTime.now(),
                         readingTimeMinutes: 5,
-                        bodyHtml: content, // Puedes almacenar el contenido en HTML si es necesario
+                        bodyHtml:
+                            content, // Puedes almacenar el contenido en HTML si es necesario
                         bodyMarkdown: content, // O en Markdown
                       );
 
                       // Llamar al servicio para crear el artículo
-                      Map<String, dynamic> result = await _newsArticleServices.createNewsArticle(article);
+                      Map<String, dynamic> result =
+                          await _newsArticleServices.createNewsArticle(article);
 
                       if (result.containsKey('error') && result['error']) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Error: ${result['message']}')),
-
+                          SnackBar(
+                              content: Text('Error: ${result['message']}')),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Artículo creado exitosamente!')),
-
+                          const SnackBar(
+                              content: Text('Artículo creado exitosamente!')),
                         );
                       }
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Por favor, complete todos los campos')),
-
+                        const SnackBar(
+                            content:
+                                Text('Por favor, complete todos los campos')),
                       );
                     }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black87,
-                    padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
-                    textStyle: const TextStyle(fontSize: 16,color: Colors.white),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 15, horizontal: 30),
+                    textStyle:
+                        const TextStyle(fontSize: 16, color: Colors.white),
                   ),
                   child: const Text(
-                      'Guardar Artículo',
-                    style: TextStyle(
-                      color: Colors.white
-                    ),
+                    'Guardar Artículo',
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               ),

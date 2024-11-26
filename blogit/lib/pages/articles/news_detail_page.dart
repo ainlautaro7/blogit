@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:html/parser.dart' as html_parser;
 import 'package:html/dom.dart' as dom;
 import 'package:provider/provider.dart'; // Importa Provider
-import '../../services/devto_service.dart';
-import '../../../models/news_article.dart';
-import '../../providers/theme_provider.dart'; // Importa ThemeProvider
+import 'package:myapp2/services/devto_service.dart';
+import 'package:myapp2/providers/theme_provider.dart';
+import 'package:myapp2/models/news_article.dart';
 
 class NewsDetailPage extends StatefulWidget {
   final int articleId;
@@ -30,7 +30,8 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
     dom.Document document = html_parser.parse(htmlContent);
     List<Widget> widgets = [];
     final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
-    final textColor = themeProvider.isDarkMode ? Colors.white70 : Colors.black87;
+    final textColor =
+        themeProvider.isDarkMode ? Colors.white70 : Colors.black87;
 
     document.body?.children.forEach((element) {
       if (element.localName == 'p') {
@@ -57,7 +58,8 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
             ),
           ),
         );
-      } else if (element.localName == 'img' && element.attributes['src'] != null) {
+      } else if (element.localName == 'img' &&
+          element.attributes['src'] != null) {
         widgets.add(
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -81,14 +83,16 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-    final backgroundColor = themeProvider.isDarkMode ? Colors.grey[950] : Colors.white;
+    final backgroundColor =
+        themeProvider.isDarkMode ? Colors.grey[950] : Colors.white;
 
     final appBarColor = themeProvider.isDarkMode ? Colors.green : Colors.black;
     final titleColor = themeProvider.isDarkMode ? Colors.white : Colors.black;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('BLOGIT', style: TextStyle(fontWeight: FontWeight.w700,fontSize: 25)),
+        title: const Text('BLOGIT',
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25)),
         centerTitle: true,
         elevation: 5.0, // Sombra más pronunciada
         backgroundColor: backgroundColor, // Color de fondo
@@ -129,38 +133,40 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
                       borderRadius: BorderRadius.circular(0),
                       child: article.coverImage != null
                           ? Image.network(
-                        article.coverImage!,
-                        width: double.infinity,
-                        height: 220,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Container(
-                            height: 220,
-                            color: Colors.grey[300],
-                            child: const Center(child: Text('Imagen no disponible')),
-                          );
-                        },
-                      )
+                              article.coverImage!,
+                              width: double.infinity,
+                              height: 220,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Container(
+                                  height: 220,
+                                  color: Colors.grey[300],
+                                  child: const Center(
+                                      child: Text('Imagen no disponible')),
+                                );
+                              },
+                            )
                           : Image.network(
-                        article.socialImage!,
-                        width: double.infinity,
-                        height: 220,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Container(
-                            height: 220,
-                            color: Colors.grey[300],
-                            child: const Center(child: Text('Imagen no disponible')),
-                          );
-                        },
-                      ),
+                              article.socialImage!,
+                              width: double.infinity,
+                              height: 220,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Container(
+                                  height: 220,
+                                  color: Colors.grey[300],
+                                  child: const Center(
+                                      child: Text('Imagen no disponible')),
+                                );
+                              },
+                            ),
                     ),
                   ),
                   const SizedBox(height: 16.0),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Text(
-                      article.title ?? "",
+                      article.title,
                       style: TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
@@ -175,7 +181,9 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
                       style: TextStyle(
                         fontSize: 18,
                         fontStyle: FontStyle.italic,
-                        color: themeProvider.isDarkMode ? Colors.white60 : Colors.grey,
+                        color: themeProvider.isDarkMode
+                            ? Colors.white60
+                            : Colors.grey,
                       ),
                     ),
                   ),
