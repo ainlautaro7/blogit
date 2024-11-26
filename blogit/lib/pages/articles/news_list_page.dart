@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../services/devto_service.dart';
-import '../../widgets/article_slider.dart';
-import '../../widgets/article_list.dart';
-import '../../widgets/tag_filter.dart';
-import '../../models/news_article.dart';
+import 'package:myapp2/services/devto_service.dart';
+import 'package:myapp2/widgets/article_slider.dart';
+import 'package:myapp2/widgets/article_list.dart';
+import 'package:myapp2/widgets/tag_filter.dart';
+import 'package:myapp2/models/news_article.dart';
 
 class NewsListPage extends StatefulWidget {
   const NewsListPage({super.key});

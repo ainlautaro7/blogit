@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:myapp2/models/podcast_episode.dart';
 import 'package:myapp2/pages/podcasts/podcast_detail_page.dart';
-import 'package:provider/provider.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:myapp2/services/devto_service.dart';
-import 'package:myapp2/providers/theme_provider.dart';
+import 'package:myapp2/widgets/generic_card.dart';
 
 class PodcastPage extends StatefulWidget {
   const PodcastPage({super.key});
@@ -60,8 +59,6 @@ class _PodcastPageState extends State<PodcastPage> {
   }
 
   Widget _buildPodcastList() {
-    final isDarkMode = Provider.of<ThemeProvider>(context).isDarkMode;
-
     return FutureBuilder<List<PodcastEpisode>>(
       future: _podcastEpisodes,
       builder: (context, snapshot) {
@@ -85,58 +82,17 @@ class _PodcastPageState extends State<PodcastPage> {
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
               final episode = snapshot.data![index];
-              return GestureDetector(
+              return GenericCard(
+                title: episode.title,
+                imageUrl: episode.imageUrl,
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => PodcastDetailPage(
-                          episode: episode), // Pasando el episodio seleccionado
+                      builder: (context) => PodcastDetailPage(episode: episode),
                     ),
                   );
                 },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white, // Color de fondo de la tarjeta
-                    boxShadow: [
-                      BoxShadow(
-                        color: isDarkMode
-                            ? Colors.transparent
-                            : Colors.grey.withOpacity(0.3),
-                        spreadRadius: 2,
-                        blurRadius: 5,
-                        offset: const Offset(
-                            0, 0), // Cambiar la posición de la sombra
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ClipRRect(
-                          borderRadius: const BorderRadius.vertical(
-                              top: Radius.circular(10)),
-                          child: Image.network(episode.imageUrl,
-                              height: 120,
-                              width: double.infinity,
-                              fit: BoxFit.cover)),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          episode.title.length > 50
-                              ? '${episode.title.substring(0, 50)}...'
-                              : episode.title,
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
               );
             },
           ),
