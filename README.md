@@ -75,4 +75,4 @@ Este proyecto está bajo la Licencia MIT. Consulta el archivo `LICENSE` para má
 
 ---
 
-¡Gracias por visitar Blogit! Esperamos que disfrutes usando nuestra aplicación tanto como nosotros disfrutamos desarrollándola. 🎉
+¡Gracias por visitar Blogit! Esperamos que disfrutes usando nuestra aplicación tanto como yo disfrute desarrollándola. 🎉
